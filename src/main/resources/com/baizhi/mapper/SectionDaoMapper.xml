@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.SectionDao">
+    <insert id="insert" parameterType="Section">
+        insert into sections values(#{id},#{name},#{size},#{release_date},#{path},#{duration},#{se_type},#{special_id})
+    </insert>
+
+    <delete id="deleteOneById" parameterType="String">
+        delete from sections where id=#{id}
+    </delete>
+
+    <delete id="deleteBySpecialId" parameterType="String">
+        delete from sections where special_id=#{special_id}
+    </delete>
+</mapper>

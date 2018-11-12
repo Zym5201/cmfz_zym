@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.CourseDao">
+    <select id="queryByPage" resultType="Course">
+        select id,title,marking,creatTime,user_id from course limit #{start},#{rows}
+    </select>
+
+    <insert id="save" parameterType="Course">
+      insert into course values(#{id},#{title},#{marking},#{creatTime},#{user_id})
+    </insert>
+
+    <delete id="deleteOneById" parameterType="String">
+        delete from course where id=#{id}
+    </delete>
+
+    <select id="total" resultType="Integer">
+        select count(id) from course
+    </select>
+
+    <update id="update" parameterType="Course">
+        update course set title=#{title} marking#{marking} where id=#{id}
+    </update>
+
+    <select id="queryOneById" parameterType="String" resultType="Course">
+        select id,title,marking,creatTime,user_id from course where id=#{id}
+    </select>
+</mapper>

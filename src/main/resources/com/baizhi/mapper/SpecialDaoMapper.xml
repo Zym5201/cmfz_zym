@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.SpecialDao">
+    <resultMap id="MySpecial" type="Special">
+        <id property="id" column="ssid"/>
+        <result property="name" column="name"/>
+        <result property="pic" column="pic"/>
+        <result property="author" column="author"/>
+        <result property="broadcast" column="broadcast"/>
+        <result property="collect_number" column="collect_number"/>
+        <result property="issue_date" column="issue_date"/>
+        <result property="content_synopsis" column="content_synopsis"/>
+        <result property="state" column="state"/>
+        <collection property="children" ofType="Section">
+            <id property="id" column="sid"/>
+            <result property="name" column="sname"/>
+            <result property="size" column="ssize"/>
+            <result property="release_date" column="srelease_date"/>
+            <result property="path" column="spath"/>
+            <result property="duration" column="sduration"/>
+            <result property="se_type" column="sse_type"/>
+            <result property="special_id" column="sspecial_id"/>
+        </collection>
+    </resultMap>
+    <select id="queryByPage" resultMap="MySpecial">
+      select ss.id ssid,ss.name,ss.pic,ss.author,ss.broadcast,ss.collect_number,ss.issue_date,ss.content_synopsis,ss.state,s.id sid,s.name sname,s.size ssize,s.release_date srelease_date,s.path spath,s.duration sduration,s.se_type sse_type,s.special_id sspecial_id from special ss left join sections s
+      on ss.id=s.special_id limit #{start},#{rows}
+    </select>
+
+    <insert id="insert" parameterType="Special">
+      insert into special values(#{id},#{name},#{pic},#{author},#{broadcast},#{collect_number},#{issue_date},#{content_synopsis},#{state})
+    </insert>
+
+    <select id="total" resultType="Integer">
+        select count(id) from special
+    </select>
+
+    <update id="update" parameterType="Special">
+        update special set name=#{name},pic=#{pic},collect_number=#{collect_number},issue_date=#{issue_date},content_synopsis=#{content_synopsis},state=#{state} where id=#{id}
+    </update>
+
+    <select id="queryOne" parameterType="String" resultType="Special">
+        select id,name,pic,author,broadcast,collect_number,issue_date,content_synopsis,state from special where id=#{id}
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        delete from special where id=#{id}
+    </delete>
+</mapper>

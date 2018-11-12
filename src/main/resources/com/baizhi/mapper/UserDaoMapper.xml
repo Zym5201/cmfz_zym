@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <select id="queryByPage" resultType="User">
+      select id,username,password,picture,dharma_name,realname,sex,city,province,signature,g_id,status,create_date from user limit #{start},#{rows}
+    </select>
+
+    <insert id="insert" parameterType="User">
+        insert into user values(#{id},#{username},#{password},#{picture},#{dharma_name},#{realname},#{sex},#{city},#{province},#{signature},#{g_id},#{status},#{create_date})
+    </insert>
+
+    <select id="total" resultType="Integer">
+        select count(id) from user
+    </select>
+
+    <delete id="deleteOneById" parameterType="String">
+        delete from user where id=#{id}
+    </delete>
+
+    <update id="updateStatus" parameterType="User">
+        update user set status=#{status} where id=#{id}
+    </update>
+</mapper>

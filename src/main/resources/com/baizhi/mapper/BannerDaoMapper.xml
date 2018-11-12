@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.BannerDao">
+    <select id="queryByPage" resultType="Banner">
+        select id,title,imgPath,descd,status,date from banner limit #{start},#{rows}
+    </select>
+
+    <select id="total" resultType="Integer">
+        select count(id) from banner
+    </select>
+
+    <insert id="insert" parameterType="Banner">
+        insert into banner values(#{id},#{title},#{imgPath},#{descd},#{status},#{date})
+    </insert>
+
+    <delete id="deleteOneById" parameterType="String">
+        delete from banner where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Banner">
+        update banner set title=#{title},imgPath=#{imgPath},descd=#{descd},status=#{status},date=#{date} where id=#{id}
+    </update>
+
+    <select id="queryOne" parameterType="String" resultType="Banner">
+        select id,title,imgPath,descd from banner where id=#{id}
+    </select>
+</mapper>
